@@ -173,6 +173,7 @@ return [
     'books_sort_desc' => 'Kapitel und Seiten innerhalb eines Buches verschieben, um dessen Inhalt zu reorganisieren. Andere Bücher können hinzugefügt werden, was das Verschieben von Kapiteln und Seiten zwischen Büchern erleichtert. Optional kann eine automatische Sortierregel erstellt werden, um den Inhalt dieses Buches nach Änderungen automatisch zu sortieren.',
     'books_sort_auto_sort' => 'Auto-Sortieroption',
     'books_sort_auto_sort_active' => 'Automatische Sortierung aktiv: :sortName',
+    'books_sort_auto_sort_creation_hint' => 'Auto sort option rules can be created in the "Lists & Sorting" settings area by a user with the relevant permissions.',
     'books_sort_named' => 'Buch ":bookName" sortieren',
     'books_sort_name' => 'Sortieren nach Namen',
     'books_sort_created' => 'Sortieren nach Erstellungsdatum',
