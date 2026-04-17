@@ -109,7 +109,7 @@ return [
     'zip_file_size' => 'Файл :attribute не должен превышать :size МБ.',
     'zip_file_mime' => ':attribute должен ссылаться на файл типа :validTypes, найден :foundType.',
     'zip_model_expected' => 'Ожидался объект данных, но найдено ":type".',
-    'zip_unique' => 'The :attribute must be unique for the object type within the ZIP.',
+    'zip_unique' => 'Значение :attribute должно быть уникальным для типа объекта внутри ZIP.',
 
     // Custom validation lines
     'custom' => [
