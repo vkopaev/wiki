@@ -207,6 +207,7 @@ return [
     'role_all' => 'Все',
     'role_own' => 'Владелец',
     'role_controlled_by_asset' => 'Контролируется активом, в который они загружены',
+    'role_controlled_by_page_delete' => 'Controlled by page delete permissions',
     'role_save' => 'Сохранить роль',
     'role_users' => 'Пользователи с данной ролью',
     'role_users_none' => 'Нет пользователей с данной ролью',
