@@ -208,6 +208,7 @@ Hinweis: Benutzer kÃ¶nnen ihre E-Mail Adresse nach erfolgreicher Registrierung Ã
     'role_all' => 'Alle',
     'role_own' => 'Eigene',
     'role_controlled_by_asset' => 'Berechtigungen werden vom Uploadziel bestimmt',
+    'role_controlled_by_page_delete' => 'Controlled by page delete permissions',
     'role_save' => 'Rolle speichern',
     'role_users' => 'Dieser Rolle zugeordnete Benutzer',
     'role_users_none' => 'Bisher sind dieser Rolle keine Benutzer zugeordnet',
