@@ -75,9 +75,9 @@ class BookQueries implements ProvidesEntityQueries
 
     public function popularForList(): Builder
     {
-        return $this->visibleForList()
-            ->scopes('withViewCount')
-            ->having('view_count', '>', 0)
-            ->orderBy('view_count', 'desc');
+        return $this->visibleForList();
+            // ->scopes('withViewCount')
+            // ->having('view_count', '>', 0)
+            // ->orderBy('view_count', 'desc');
     }
 }
