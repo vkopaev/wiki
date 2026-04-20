@@ -59,6 +59,7 @@ class BookshelfRepo
      */
     protected function updateBooks(Bookshelf $shelf, array $bookIds): void
     {
+        dd($bookIds);
         if (count($bookIds) > 0) {
             $numericIDs = collect($bookIds)->map(function ($id) {
                 return intval($id);
