@@ -3,12 +3,8 @@
 namespace BookStack\App\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use SocialiteProviders\Azure\AzureExtendSocialite;
-use SocialiteProviders\Discord\DiscordExtendSocialite;
-use SocialiteProviders\GitLab\GitLabExtendSocialite;
+use SocialiteProviders\Authentik\AuthentikExtendSocialite;
 use SocialiteProviders\Manager\SocialiteWasCalled;
-use SocialiteProviders\Okta\OktaExtendSocialite;
-use SocialiteProviders\Twitch\TwitchExtendSocialite;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -19,11 +15,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         SocialiteWasCalled::class => [
-            AzureExtendSocialite::class . '@handle',
-            OktaExtendSocialite::class . '@handle',
-            GitLabExtendSocialite::class . '@handle',
-            TwitchExtendSocialite::class . '@handle',
-            DiscordExtendSocialite::class . '@handle',
+            AuthentikExtendSocialite::class . '@handle',
         ],
     ];
 

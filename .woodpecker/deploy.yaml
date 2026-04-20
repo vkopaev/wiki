@@ -1,0 +1,40 @@
+matrix:
+  NODE_ADDRESS:
+    - co.pk-8.ru
+    - do.pk-8.ru
+    - vo.pk-8.ru
+    - ho.pk-8.ru
+    - mr.pk-8.ru
+steps:
+  backend:
+    image: kroniak/ssh-client
+    commands:
+      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && php artisan down && git checkout develop && git restore . && git pull && docker run --rm -v ./:/app registry.mr.pk-8.ru/composer/composer composer install --no-dev --ignore-platform-reqs'
+    volumes:
+      - /home/docker/ssh:/root/.ssh
+    failure: ignore
+  front:
+    image: kroniak/ssh-client
+    commands:
+      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && docker run --rm --workdir /app -v ./:/app registry.mr.pk-8.ru/library/node:current-alpine sh -c "npm install && npm run build"'
+    volumes:
+      - /home/docker/ssh:/root/.ssh
+    failure: ignore
+  optimize:
+    image: kroniak/ssh-client
+    commands:
+      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && php artisan optimize:clear && php artisan optimize -vvv --no-interaction'
+    volumes:
+      - /home/docker/ssh:/root/.ssh
+  restart:
+    image: kroniak/ssh-client
+    commands:
+      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && php artisan up && docker compose down && docker compose up -d'
+    volumes:
+      - /home/docker/ssh:/root/.ssh
+  migration:
+    image: kroniak/ssh-client
+    commands:
+      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && docker compose exec web php84 /app/${CI_REPO_NAME}/artisan migrate --force'
+    volumes:
+      - /home/docker/ssh:/root/.ssh

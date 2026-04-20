@@ -1,52 +1,88 @@
-# This is a Docker Compose configuration
-# intended for development purposes only
-
-volumes:
-  db: {}
-
 services:
-  db:
-    image: mysql:8.4
-    environment:
-      MYSQL_DATABASE: bookstack-dev
-      MYSQL_USER: bookstack-test
-      MYSQL_PASSWORD: bookstack-test
-      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
-    volumes:
-      - ./dev/docker/init.db:/docker-entrypoint-initdb.d
-      - db:/var/lib/mysql
-  app:
-    build:
-      context: .
-      dockerfile: ./dev/docker/Dockerfile
-    environment:
-      APP_URL: http://localhost:${DEV_PORT:-8080}
-      DB_CONNECTION: mysql
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_DATABASE: bookstack-dev
-      DB_USERNAME: bookstack-test
-      DB_PASSWORD: bookstack-test
-      TEST_DATABASE_URL: mysql://bookstack-test:bookstack-test@db/bookstack-test
-      MAIL_DRIVER: smtp
-      MAIL_HOST: mailhog
-      MAIL_PORT: 1025
-    ports:
-      - ${DEV_PORT:-8080}:80
-    volumes:
-      - ./:/app
-      - ./dev/docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-    entrypoint: /app/dev/docker/entrypoint.app.sh
-    extra_hosts:
-    - "host.docker.internal:host-gateway"
-  node:
-    image: node:22-alpine
-    working_dir: /app
-    user: node
-    volumes:
-      - ./:/app
-    entrypoint: /app/dev/docker/entrypoint.node.sh
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - ${DEV_MAIL_PORT:-8025}:8025
+    web:
+        profiles: [web]
+        restart: unless-stopped
+        image: registry.mr.pk-8.ru/veneridze/laravel-octane:8.4
+        command: "/usr/bin/php84 /app/wiki/artisan octane:start --server=roadrunner --rpc-port=6001 --host=0.0.0.0 --port=80 --workers=20"
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "/usr/bin/php84 /app/wiki/artisan octane:status --no-ansi | grep -q 'Octane server is running' && exit 0 || exit 1",
+                ]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 10s
+        labels:
+            traefik.enable: true
+            traefik.http.routers.wiki.rule: HostRegexp(`wiki\..[a-z-]\.pk-8\.ru`)
+            traefik.http.routers.wiki.entrypoints: websecure
+            traefik.http.services.wiki.loadbalancer.server.port: 80
+        volumes:
+            - ".:/app/wiki"
+        networks:
+            default:
+            web: 
+                aliases:
+                    - wiki_web
+            database:
+    queue:
+        profiles: [backend, queue]
+        restart: unless-stopped
+        image: registry.mr.pk-8.ru/veneridze/laravel-octane:8.4
+        command:
+            [
+                "/bin/bash",
+                "-c",
+                "cd /app/wiki && /usr/bin/php84 -d variables_order=EGPCS artisan queue:listen",
+            ]
+        # network_mode: "service:web"
+        volumes:
+            - ".:/app/wiki"
+        networks:
+            - default
+            - database
+    schedule:
+        profiles: [backend, schedule]
+        restart: unless-stopped
+        image: registry.mr.pk-8.ru/veneridze/laravel-octane:8.4
+        # network_mode: "service:web"
+        command:
+            [
+                "/bin/bash",
+                "-c",
+                "cd /app/wiki && /usr/bin/php84 -d variables_order=EGPCS artisan schedule:work",
+            ]
+        volumes:
+            - ".:/app/wiki"
+        networks:
+            - default
+            - database
+    redis:
+        profiles: [web, backend, redis]
+        image: registry.mr.pk-8.ru/library/redis:8.2.1-alpine
+        restart: unless-stopped
+        command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-your_secure_password_here}
+        volumes:
+            - ./redis:/data
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 10s
+        environment:
+            - REDIS_PASSWORD=${REDIS_PASSWORD:-your_secure_password_here}
+        networks:
+            default:
+                aliases:
+                    - redis
+networks:
+    web:
+        external: true
+    database:
+        external: true
+    default:
+        name: default
+        driver: bridge

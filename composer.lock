@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8dc695e5ecb6cea01e282394da136713",
+    "content-hash": "1d0ab0e1bbdf7fd2c800d87c07e40d04",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -5063,28 +5063,28 @@
             "time": "2026-03-03T17:31:43+00:00"
         },
         {
-            "name": "socialiteproviders/discord",
-            "version": "4.2.0",
+            "name": "socialiteproviders/authentik",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/SocialiteProviders/Discord.git",
-                "reference": "c71c379acfdca5ba4aa65a3db5ae5222852a919c"
+                "url": "https://github.com/SocialiteProviders/Authentik.git",
+                "reference": "4cf129cf04728a38e0531c54454464b162f0fa66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Discord/zipball/c71c379acfdca5ba4aa65a3db5ae5222852a919c",
-                "reference": "c71c379acfdca5ba4aa65a3db5ae5222852a919c",
+                "url": "https://api.github.com/repos/SocialiteProviders/Authentik/zipball/4cf129cf04728a38e0531c54454464b162f0fa66",
+                "reference": "4cf129cf04728a38e0531c54454464b162f0fa66",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": "^7.4 || ^8.0",
-                "socialiteproviders/manager": "~4.0"
+                "php": "^8.0",
+                "socialiteproviders/manager": "^4.4"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "SocialiteProviders\\Discord\\": ""
+                    "SocialiteProviders\\Authentik\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -5093,65 +5093,19 @@
             ],
             "authors": [
                 {
-                    "name": "Christopher Eklund",
-                    "email": "eklundchristopher@gmail.com"
+                    "name": "rf152",
+                    "email": "git@rf152.co.uk"
                 }
             ],
-            "description": "Discord OAuth2 Provider for Laravel Socialite",
+            "description": "Authentik OAuth2 Provider for Laravel Socialite",
             "keywords": [
-                "discord",
+                "authentik",
                 "laravel",
                 "oauth",
                 "provider",
                 "socialite"
             ],
-            "support": {
-                "docs": "https://socialiteproviders.com/discord",
-                "issues": "https://github.com/socialiteproviders/providers/issues",
-                "source": "https://github.com/socialiteproviders/providers"
-            },
-            "time": "2023-07-24T23:28:47+00:00"
-        },
-        {
-            "name": "socialiteproviders/gitlab",
-            "version": "4.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SocialiteProviders/GitLab.git",
-                "reference": "a8f67d3b02c9ee8c70c25c6728417c0eddcbbb9d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/GitLab/zipball/a8f67d3b02c9ee8c70c25c6728417c0eddcbbb9d",
-                "reference": "a8f67d3b02c9ee8c70c25c6728417c0eddcbbb9d",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^7.2 || ^8.0",
-                "socialiteproviders/manager": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SocialiteProviders\\GitLab\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christoffer Martinsen",
-                    "email": "christoffermartinsen@gmail.com"
-                }
-            ],
-            "description": "GitLab OAuth2 Provider for Laravel Socialite",
-            "support": {
-                "source": "https://github.com/SocialiteProviders/GitLab/tree/4.1.0"
-            },
-            "time": "2020-12-01T23:10:59+00:00"
+            "time": "2023-11-07T22:21:16+00:00"
         },
         {
             "name": "socialiteproviders/manager",
@@ -5226,157 +5180,6 @@
                 "source": "https://github.com/socialiteproviders/manager"
             },
             "time": "2026-03-18T22:13:24+00:00"
-        },
-        {
-            "name": "socialiteproviders/microsoft-azure",
-            "version": "5.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SocialiteProviders/Microsoft-Azure.git",
-                "reference": "453d62c9d7e3b3b76e94c913fb46e68a33347b16"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Microsoft-Azure/zipball/453d62c9d7e3b3b76e94c913fb46e68a33347b16",
-                "reference": "453d62c9d7e3b3b76e94c913fb46e68a33347b16",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^8.0",
-                "socialiteproviders/manager": "^4.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SocialiteProviders\\Azure\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chris Hemmings",
-                    "email": "chris@hemmin.gs"
-                }
-            ],
-            "description": "Microsoft Azure OAuth2 Provider for Laravel Socialite",
-            "keywords": [
-                "azure",
-                "laravel",
-                "microsoft",
-                "oauth",
-                "provider",
-                "socialite"
-            ],
-            "support": {
-                "docs": "https://socialiteproviders.com/microsoft-azure",
-                "issues": "https://github.com/socialiteproviders/providers/issues",
-                "source": "https://github.com/socialiteproviders/providers"
-            },
-            "time": "2024-03-15T03:02:10+00:00"
-        },
-        {
-            "name": "socialiteproviders/okta",
-            "version": "4.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SocialiteProviders/Okta.git",
-                "reference": "b8b0d5ea72325ead82481524a48576aaf39356ed"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Okta/zipball/b8b0d5ea72325ead82481524a48576aaf39356ed",
-                "reference": "b8b0d5ea72325ead82481524a48576aaf39356ed",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^8.0",
-                "socialiteproviders/manager": "^4.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SocialiteProviders\\Okta\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chase Coney",
-                    "email": "chase.coney@gmail.com"
-                }
-            ],
-            "description": "Okta OAuth2 Provider for Laravel Socialite",
-            "keywords": [
-                "laravel",
-                "oauth",
-                "okta",
-                "provider",
-                "socialite"
-            ],
-            "support": {
-                "docs": "https://socialiteproviders.com/okta",
-                "issues": "https://github.com/socialiteproviders/providers/issues",
-                "source": "https://github.com/socialiteproviders/providers"
-            },
-            "time": "2024-11-07T21:57:40+00:00"
-        },
-        {
-            "name": "socialiteproviders/twitch",
-            "version": "5.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SocialiteProviders/Twitch.git",
-                "reference": "c8791b9d208195b5f02bea432de89d0e612b955d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Twitch/zipball/c8791b9d208195b5f02bea432de89d0e612b955d",
-                "reference": "c8791b9d208195b5f02bea432de89d0e612b955d",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^8.0",
-                "socialiteproviders/manager": "^4.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SocialiteProviders\\Twitch\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Brian Faust",
-                    "email": "hello@brianfaust.de"
-                }
-            ],
-            "description": "Twitch OAuth2 Provider for Laravel Socialite",
-            "keywords": [
-                "laravel",
-                "oauth",
-                "provider",
-                "socialite",
-                "twitch"
-            ],
-            "support": {
-                "docs": "https://socialiteproviders.com/twitch",
-                "issues": "https://github.com/socialiteproviders/providers/issues",
-                "source": "https://github.com/socialiteproviders/providers"
-            },
-            "time": "2024-04-01T01:15:35+00:00"
         },
         {
             "name": "ssddanbrown/htmldiff",
