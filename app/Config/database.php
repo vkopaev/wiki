@@ -73,6 +73,32 @@ return [
             'synchronous' => null,
         ],
 
+        'pgsql' => [
+            'driver' => 'pgsql',
+            'read' => [
+                'host' => [
+                    env('DB_READ_HOST', env('DB_HOST', '127.0.0.1')),
+                ],
+                'port' => env('DB_READ_PORT', env('DB_PORT', '5432')),
+            ],
+            'write' => [
+                'host' => [
+                    env('DB_WRITE_HOST', env('DB_HOST', '127.0.0.1')),
+                ],
+                'port' => env('DB_WRITE_PORT', env('DB_PORT', '5432')),
+            ],
+            'sticky' => true,
+            'url' => env('DB_URL'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => env('DB_CHARSET', 'utf8'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer'
+        ],
+
         'mysql' => [
             'driver'         => 'mysql',
             'url'            => env('DATABASE_URL'),
