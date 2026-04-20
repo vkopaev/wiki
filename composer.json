@@ -8,7 +8,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^8.2.0",
+        "php": "^8.4.0",
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
@@ -19,33 +19,31 @@
         "ext-zip": "*",
         "bacon/bacon-qr-code": "^3.0",
         "dompdf/dompdf": "^3.1",
-        "ezyang/htmlpurifier": "^4.19",
+        "ezyang/htmlpurifier": "^4",
         "guzzlehttp/guzzle": "^7.4",
         "intervention/image": "^3.5",
         "knplabs/knp-snappy": "^1.5",
-        "laravel/framework": "^v12.26.4",
-        "laravel/socialite": "^5.10",
+        "laravel/framework": "*",
+        "laravel/octane": "*",
+        "laravel/socialite": "*",
         "laravel/tinker": "^2.8",
         "league/commonmark": "^2.3",
         "league/flysystem-aws-s3-v3": "^3.0",
         "league/html-to-markdown": "^5.0.0",
         "league/oauth2-client": "^2.6",
-        "onelogin/php-saml": "^4.3.1",
+        "onelogin/php-saml": "^4",
         "phpseclib/phpseclib": "^3.0",
-        "pragmarx/google2fa": "^9.0",
-        "predis/predis": "^3.2",
         "socialiteproviders/authentik": "^5.2",
-        "ssddanbrown/htmldiff": "^2.0.0",
-        "xemlock/htmlpurifier-html5": "^0.1.12"
+        "ssddanbrown/htmldiff": "*",
+        "xemlock/htmlpurifier-html5": "^0.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.21",
         "itsgoingd/clockwork": "^5.1",
         "mockery/mockery": "^1.5",
         "nunomaduro/collision": "^8.6",
-        "larastan/larastan": "^v3.0",
         "phpunit/phpunit": "^11.5",
-        "squizlabs/php_codesniffer": "^4.0.1",
+        "squizlabs/php_codesniffer": "*",
         "ssddanbrown/asserthtml": "^3.1"
     },
     "autoload": {
@@ -101,7 +99,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "platform": {
-            "php": "8.2.0"
+            "php": "8.4.0"
         }
     },
     "extra": {
