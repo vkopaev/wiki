@@ -74,8 +74,8 @@ class BookshelfQueries implements ProvidesEntityQueries
     {
         return $this->visibleForList()
             // ->scopes('withLastView')
-            ->having('last_viewed_at', '>', 0)
-            ->orderBy('last_viewed_at', 'desc');
+            // ->having('last_viewed_at', '>', 0)
+            // ->orderBy('last_viewed_at', 'desc');
     }
 
     public function popularForList(): Builder
