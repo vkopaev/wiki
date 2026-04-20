@@ -34,6 +34,8 @@
         "onelogin/php-saml": "^4",
         "phpseclib/phpseclib": "^3.0",
         "socialiteproviders/authentik": "^5.2",
+        "spiral/roadrunner-cli": "^2.6.0",
+        "spiral/roadrunner-http": "^3.3.0",
         "ssddanbrown/htmldiff": "*",
         "xemlock/htmlpurifier-html5": "^0.1"
     },
