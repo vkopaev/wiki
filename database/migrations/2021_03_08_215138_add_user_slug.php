@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('slug', 180);
+            $table->string('slug', 180)->unique()->nullable();
         });
 
         $slugMap = [];
@@ -28,10 +28,6 @@ return new class extends Migration
             DB::table('users')
                 ->where('id', $user->id)
                 ->update(['slug' => $userSlug]);
-        });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->unique('slug');
         });
     }
 
