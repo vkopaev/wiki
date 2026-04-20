@@ -9,7 +9,7 @@ steps:
   backend:
     image: kroniak/ssh-client
     commands:
-      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && php artisan down && git checkout develop && git restore . && git pull && docker run --rm -v ./:/app registry.mr.pk-8.ru/composer/composer composer install --no-dev --ignore-platform-reqs'
+      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && php artisan down && git checkout release && git restore . && git pull && docker run --rm -v ./:/app registry.mr.pk-8.ru/composer/composer composer install --no-dev --ignore-platform-reqs'
     volumes:
       - /home/docker/ssh:/root/.ssh
     failure: ignore
