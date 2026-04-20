@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('roles', function (Blueprint $table) {
-            $table->boolean('mfa_enforced');
+            $table->boolean('mfa_enforced')->default(false);
         });
     }
 
