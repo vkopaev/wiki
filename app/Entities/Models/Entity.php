@@ -155,29 +155,29 @@ abstract class Entity extends Model implements
     /**
      * Query scope to get the last view from the current user.
      */
-    public function scopeWithLastView(Builder $query)
-    {
-        $viewedAtQuery = View::query()->select('updated_at')
-            ->whereColumn('viewable_id', '=', 'entities.id')
-            ->whereColumn('viewable_type', '=', 'entities.type')
-            ->where('user_id', '=', user()->id)
-            ->take(1);
+    // public function scopeWithLastView(Builder $query)
+    // {
+    //     $viewedAtQuery = View::query()->select('updated_at')
+    //         ->whereColumn('viewable_id', '=', 'entities.id')
+    //         ->whereColumn('viewable_type', '=', 'entities.type')
+    //         ->where('user_id', '=', user()->id)
+    //         ->take(1);
 
-        return $query->addSelect(['last_viewed_at' => $viewedAtQuery]);
-    }
+    //     return $query->addSelect(['last_viewed_at' => $viewedAtQuery]);
+    // }
 
     /**
      * Query scope to get the total view count of the entities.
      */
-    public function scopeWithViewCount(Builder $query): void
-    {
-        $viewCountQuery = View::query()->selectRaw('SUM(views) as view_count')
-            ->whereColumn('viewable_id', '=', 'entities.id')
-            ->whereColumn('viewable_type', '=', 'entities.type')
-            ->take(1);
+    // public function scopeWithViewCount(Builder $query): void
+    // {
+    //     $viewCountQuery = View::query()->selectRaw('SUM(views) as view_count')
+    //         ->whereColumn('viewable_id', '=', 'entities.id')
+    //         ->whereColumn('viewable_type', '=', 'entities.type')
+    //         ->take(1);
 
-        $query->addSelect(['view_count' => $viewCountQuery]);
-    }
+    //     $query->addSelect(['view_count' => $viewCountQuery]);
+    // }
 
     /**
      * Compares this entity to another given entity.
