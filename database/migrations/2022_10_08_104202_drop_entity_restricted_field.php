@@ -30,24 +30,24 @@ return new class extends Migration
         $deleteInactiveEntityPermissions('bookshelves', 'bookshelf');
 
         // Migrate restricted=1 entries to new entity_permissions (role_id=0) entries
-        $defaultEntityPermissionGenQuery = function (Builder $query, string $table, string $morphClass) {
-            return $query->select(['id as entity_id'])
-                ->selectRaw('? as entity_type', [$morphClass])
-                ->selectRaw('? as role_id', [0])
-                ->selectRaw('? as view', [0])
-                ->selectRaw('? as create', [0])
-                ->selectRaw('? as update', [0])
-                ->selectRaw('? as delete', [0])
-                ->from($table)
-                ->where('restricted', '=', 1);
-        };
+        // $defaultEntityPermissionGenQuery = function (Builder $query, string $table, string $morphClass) {
+        //     return $query->select(['id as entity_id'])
+        //         ->selectRaw('? as entity_type', [$morphClass])
+        //         ->selectRaw('? as role_id', [0])
+        //         ->selectRaw('? as view', [0])
+        //         ->selectRaw('? as create', [0])
+        //         ->selectRaw('? as update', [0])
+        //         ->selectRaw('? as delete', [0])
+        //         ->from($table)
+        //         ->where('restricted', '=', 1);
+        // };
 
-        $query = $defaultEntityPermissionGenQuery(DB::query(), 'pages', 'page')
-            ->union(fn(Builder $query) => $defaultEntityPermissionGenQuery($query, 'books', 'book'))
-            ->union(fn(Builder $query) => $defaultEntityPermissionGenQuery($query, 'chapters', 'chapter'))
-            ->union(fn(Builder $query) => $defaultEntityPermissionGenQuery($query, 'bookshelves', 'bookshelf'));
+        // $query = $defaultEntityPermissionGenQuery(DB::query(), 'pages', 'page')
+        //     ->union(fn(Builder $query) => $defaultEntityPermissionGenQuery($query, 'books', 'book'))
+        //     ->union(fn(Builder $query) => $defaultEntityPermissionGenQuery($query, 'chapters', 'chapter'))
+        //     ->union(fn(Builder $query) => $defaultEntityPermissionGenQuery($query, 'bookshelves', 'bookshelf'));
 
-        DB::table('entity_permissions')->insertUsing(['entity_id', 'entity_type', 'role_id', 'view', 'create', 'update', 'delete'], $query);
+        // DB::table('entity_permissions')->insertUsing(['entity_id', 'entity_type', 'role_id', 'view', 'create', 'update', 'delete'], $query);
 
         // Drop restricted columns
         $dropRestrictedColumn = fn(Blueprint $table) => $table->dropColumn('restricted');
