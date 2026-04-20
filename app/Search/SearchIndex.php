@@ -26,8 +26,7 @@ class SearchIndex
 
     public function __construct(
         protected EntityProvider $entityProvider
-    ) {
-    }
+    ) {}
 
     /**
      * Index the given entity.
@@ -111,7 +110,23 @@ class SearchIndex
     {
         $chunkedTerms = array_chunk($terms, 500);
         foreach ($chunkedTerms as $termChunk) {
-            SearchTerm::query()->insert($termChunk);
+            $cleanChunk = array_map(function ($item) {
+                if (isset($item['term'])) {
+                    // Определяем текущую кодировку
+                    $encoding = mb_detect_encoding($item['term'], ['UTF-8', 'Windows-1251', 'KOI8-R'], true);
+
+                    if ($encoding !== 'UTF-8') {
+                        // Конвертируем в UTF-8
+                        $item['term'] = mb_convert_encoding($item['term'], 'UTF-8', $encoding);
+                    }
+
+                    // Дополнительная очистка
+                    $item['term'] = mb_scrub($item['term'], 'UTF-8');
+                }
+                return $item;
+            }, $termChunk);
+
+            SearchTerm::query()->insert($cleanChunk);
         }
     }
 
