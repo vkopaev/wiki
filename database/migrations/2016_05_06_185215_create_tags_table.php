@@ -16,8 +16,8 @@ return new class extends Migration
             $table->integer('entity_id');
             $table->string('entity_type', 100);
             $table->string('name');
-            $table->string('value');
-            $table->integer('order');
+            $table->string('value')->nullable();
+            $table->integer('order')->nullable();
             $table->timestamps();
 
             $table->index('name');

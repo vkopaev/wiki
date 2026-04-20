@@ -16,8 +16,7 @@ class BookshelfRepo
         protected BaseRepo $baseRepo,
         protected BookQueries $bookQueries,
         protected TrashCan $trashCan,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new shelf in the system.
@@ -60,34 +59,36 @@ class BookshelfRepo
      */
     protected function updateBooks(Bookshelf $shelf, array $bookIds): void
     {
-        $numericIDs = collect($bookIds)->map(function ($id) {
-            return intval($id);
-        });
+        if (count($bookIds) > 0) {
+            $numericIDs = collect($bookIds)->map(function ($id) {
+                return intval($id);
+            });
 
-        $existingBookIds = $shelf->books()->pluck('id')->toArray();
-        $visibleExistingBookIds = $this->bookQueries->visibleForList()
-            ->whereIn('id', $existingBookIds)
-            ->pluck('id')
-            ->toArray();
-        $nonVisibleExistingBookIds = array_values(array_diff($existingBookIds, $visibleExistingBookIds));
+            $existingBookIds = $shelf->books()->pluck('id')->toArray();
+            $visibleExistingBookIds = $this->bookQueries->visibleForList()
+                ->whereIn('id', $existingBookIds)
+                ->pluck('id')
+                ->toArray();
+            $nonVisibleExistingBookIds = array_values(array_diff($existingBookIds, $visibleExistingBookIds));
 
-        $newIdsToAssign = $this->bookQueries->visibleForList()
-            ->whereIn('id', $bookIds)
-            ->pluck('id')
-            ->toArray();
+            $newIdsToAssign = $this->bookQueries->visibleForList()
+                ->whereIn('id', $bookIds)
+                ->pluck('id')
+                ->toArray();
 
-        $maxNewIndex = max($numericIDs->keys()->toArray() ?: [0]);
+            $maxNewIndex = max($numericIDs->keys()->toArray() ?: [0]);
 
-        $syncData = [];
-        foreach ($newIdsToAssign as $id) {
-            $syncData[$id] = ['order' => $numericIDs->search($id)];
+            $syncData = [];
+            foreach ($newIdsToAssign as $id) {
+                $syncData[$id] = ['order' => $numericIDs->search($id)];
+            }
+
+            foreach ($nonVisibleExistingBookIds as $index => $id) {
+                $syncData[$id] = ['order' => $maxNewIndex + ($index + 1)];
+            }
+
+            $shelf->books()->sync($syncData);
         }
-
-        foreach ($nonVisibleExistingBookIds as $index => $id) {
-            $syncData[$id] = ['order' => $maxNewIndex + ($index + 1)];
-        }
-
-        $shelf->books()->sync($syncData);
     }
 
     /**
