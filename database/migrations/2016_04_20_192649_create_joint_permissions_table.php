@@ -33,7 +33,7 @@ return new class extends Migration
         });
 
         Schema::table('roles', function (Blueprint $table) {
-            $table->string('system_name');
+            $table->string('system_name')->nullable();
             $table->boolean('hidden')->default(false);
             $table->index('hidden');
             $table->index('system_name');
