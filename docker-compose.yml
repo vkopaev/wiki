@@ -84,5 +84,4 @@ networks:
     database:
         external: true
     default:
-        name: default
         driver: bridge
