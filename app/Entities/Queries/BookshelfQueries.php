@@ -72,7 +72,7 @@ class BookshelfQueries implements ProvidesEntityQueries
 
     public function recentlyViewedForCurrentUser(): Builder
     {
-        return $this->visibleForList()
+        return $this->visibleForList();
             // ->scopes('withLastView')
             // ->having('last_viewed_at', '>', 0)
             // ->orderBy('last_viewed_at', 'desc');
