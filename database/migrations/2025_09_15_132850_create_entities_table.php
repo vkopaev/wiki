@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('type', 10)->index();
             $table->string('name');
-            $table->string('slug')->index();
+            $table->string('slug')->nullable()->index();
 
             $table->unsignedBigInteger('book_id')->nullable()->index();
             $table->unsignedBigInteger('chapter_id')->nullable()->index();
@@ -48,14 +48,14 @@ return new class extends Migration
         Schema::create('entity_page_data', function (Blueprint $table) {
             $table->unsignedBigInteger('page_id')->primary();
 
-            $table->boolean('draft')->index();
-            $table->boolean('template')->index();
-            $table->unsignedInteger('revision_count');
+            $table->boolean('draft')->index()->nullable();
+            $table->boolean('template')->index()->nullable();
+            $table->unsignedInteger('revision_count')->nullable();
             $table->string('editor', 50);
 
-            $table->longText('html');
-            $table->longText('text');
-            $table->longText('markdown');
+            $table->longText('html')->nullable();
+            $table->longText('text')->nullable();
+            $table->longText('markdown')->nullable();
         });
     }
 

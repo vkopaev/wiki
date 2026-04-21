@@ -3,6 +3,7 @@
 namespace BookStack\Uploads;
 
 use Illuminate\Filesystem\FilesystemManager;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ImageStorage
@@ -123,6 +124,9 @@ class ImageStorage
      */
     public static function getPublicUrl(string $filePath): string
     {
+        return Storage::temporaryUrl(
+            ltrim($filePath, '/'), now()->plus(minutes: 5)
+        );
         return static::getPublicBaseUrl() . '/' . ltrim($filePath, '/');
     }
 
