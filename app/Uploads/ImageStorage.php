@@ -125,7 +125,7 @@ class ImageStorage
     public static function getPublicUrl(string $filePath): string
     {
         return Storage::temporaryUrl(
-            ltrim($filePath, '/'), now()->plus(minutes: 5)
+            ltrim($filePath, '/'), now()->addMinutes(5)
         );
         return static::getPublicBaseUrl() . '/' . ltrim($filePath, '/');
     }
