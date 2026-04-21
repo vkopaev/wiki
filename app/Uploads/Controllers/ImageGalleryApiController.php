@@ -178,7 +178,7 @@ class ImageGalleryApiController extends ApiController
         $data['updated_by'] = $image->updatedBy;
         $data['content'] = [];
 
-        $escapedUrl = htmlentities($image->getTemporaryUrl());
+        $escapedUrl = htmlentities($image->url);
         $escapedName = htmlentities($image->name);
 
         if ($image->type === 'drawio') {

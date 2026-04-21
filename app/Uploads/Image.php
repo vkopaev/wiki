@@ -30,6 +30,14 @@ class Image extends Model implements OwnableInterface
     protected $fillable = ['name'];
     protected $hidden = [];
 
+    protected $appends = [
+        'url'
+    ];
+
+    public function getUrlAttribute() {
+        return app(ImageStorage::class)->getTemporaryUrl($this->path);
+    }
+
     public function jointPermissions(): HasMany
     {
         return $this->hasMany(JointPermission::class, 'entity_id', 'uploaded_to')

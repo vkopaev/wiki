@@ -26,8 +26,8 @@
           option:ajax-form:url="{{ url('images/' . $image->id) }}">
 
         <div class="image-manager-viewer">
-            <a href="{{ $image->getTemporaryUrl() }}" target="_blank" rel="noopener" class="block">
-                <img src="{{ $image->thumbs['display'] ?? $image->getTemporaryUrl() }}"
+            <a href="{{ $image->url }}" target="_blank" rel="noopener" class="block">
+                <img src="{{ $image->thumbs['display'] ?? $image->url }}"
                      alt="{{ $image->name }}"
                      class="anim fadeIn"
                      title="{{ $image->name }}">
