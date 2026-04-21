@@ -58,7 +58,7 @@ return [
             'region'                  => env('STORAGE_S3_REGION', 'your-region'),
             'bucket'                  => env('STORAGE_S3_BUCKET', 'your-bucket'),
             'endpoint'                => env('STORAGE_S3_ENDPOINT', null),
-            'use_path_style_endpoint' => env('STORAGE_S3_ENDPOINT', null) !== null,
+            'use_path_style_endpoint' => env('STORAGE_S3_USE_PATH_STYLE_ENDPOINT', false),
             'throw'                   => true,
             'stream_reads'            => false,
         ],

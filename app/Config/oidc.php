@@ -52,7 +52,7 @@ return [
     // This can be a security risk due to performing server-side fetching (with up to 3 redirects) of
     // data from external URLs. Only enable if you trust the OIDC auth provider to provide safe URLs for user images.
     'fetch_avatar' => env('OIDC_FETCH_AVATAR', false),
-
+    'avatar_key' => env('OIDC_AVATAR_KEY', 'avatar'),
     // Group sync options
     // Enable syncing, upon login, of OIDC groups to BookStack roles
     'user_to_groups' => env('OIDC_USER_TO_GROUPS', false),
