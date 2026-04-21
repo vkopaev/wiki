@@ -32,7 +32,7 @@ class ImageController extends Controller
      */
     public function showImage(string $path)
     {
-        $image = Image::where('path', "/upload/images/{$path}")->firstOrFail();
+        $image = Image::where('path', "/uploads/images/{$path}")->firstOrFail();
         return Redirect::to($image->url);
     }
 
