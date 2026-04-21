@@ -124,12 +124,15 @@ class ImageStorage
      */
     public static function getPublicUrl(string $filePath): string
     {
+        return ltrim($filePath, '/');
+    }
+
+    public function getTemporaryUrl(string $filePath) {
+
         return Storage::temporaryUrl(
             ltrim($filePath, '/'), now()->addMinutes(5)
         );
-        return static::getPublicBaseUrl() . '/' . ltrim($filePath, '/');
     }
-
     /**
      * Get the public base URL used for images.
      * Will not include any path element of the image file, just the base part
