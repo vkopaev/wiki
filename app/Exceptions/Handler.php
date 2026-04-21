@@ -8,11 +8,12 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\PostTooLargeException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\ErrorHandler\Error\FatalError;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Sentry\Laravel\Integration;
+
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -144,6 +145,13 @@ class Handler extends ExceptionHandler
         $responseData['error']['code'] = $code;
 
         return new JsonResponse($responseData, $code, $headers);
+    }
+
+    public function register(): void
+    {
+        $this->reportable(function (Throwable $e) {
+            Integration::captureUnhandledException($e);
+        });
     }
 
     /**

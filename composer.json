@@ -33,6 +33,7 @@
         "league/oauth2-client": "^2.6",
         "onelogin/php-saml": "^4",
         "phpseclib/phpseclib": "^3.0",
+        "sentry/sentry-laravel": "^4.11",
         "socialiteproviders/authentik": "^5.2",
         "spiral/roadrunner-cli": "^2.6.0",
         "spiral/roadrunner-http": "^3.3.0",
