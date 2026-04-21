@@ -3,6 +3,7 @@
 namespace BookStack\Uploads;
 
 use Illuminate\Filesystem\FilesystemManager;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -127,11 +128,17 @@ class ImageStorage
         return ltrim($filePath, '/');
     }
 
-    public function getTemporaryUrl(string $filePath) {
+    public function getTemporaryUrl(string $filePath)
+    {
 
-        return Storage::temporaryUrl(
-            ltrim($filePath, '/'), now()->addMinutes(5)
-        );
+        $cacheTime = now()->addMinutes(10);
+        $slug = Str::slug($filePath);
+        return
+            Cache::remember(
+                "image-{$slug}",
+                $cacheTime,
+                fn() => Storage::temporaryUrl(ltrim($filePath, '/'), $cacheTime)
+            );
     }
     /**
      * Get the public base URL used for images.
