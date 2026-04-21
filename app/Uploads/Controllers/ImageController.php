@@ -15,7 +15,7 @@ use BookStack\Util\OutOfMemoryHandler;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-
+use BookStack\Uploads\ImageStorage;
 class ImageController extends Controller
 {
     public function __construct(
@@ -32,8 +32,7 @@ class ImageController extends Controller
      */
     public function showImage(string $path)
     {
-        $image = Image::where('path', "/uploads/images/{$path}")->firstOrFail();
-        return Redirect::to($image->url);
+        return app(ImageStorage::class)->getTemporaryUrl("/uploads/images/{$path}");
     }
 
     /**
