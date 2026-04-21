@@ -95,7 +95,6 @@ class ImageService
         $imageDetails = [
             'name'        => $imageName,
             'path'        => $fullPath,
-            'url'         => $this->storage->getPublicUrl($fullPath),
             'type'        => $type,
             'uploaded_to' => $uploadedTo,
         ];
