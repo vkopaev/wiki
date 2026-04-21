@@ -14,6 +14,7 @@ use BookStack\Uploads\ImageService;
 use BookStack\Util\OutOfMemoryHandler;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ImageController extends Controller
 {
@@ -31,13 +32,8 @@ class ImageController extends Controller
      */
     public function showImage(string $path)
     {
-        if (!$this->imageService->pathAccessibleInLocalSecure($path)) {
-            throw (new NotFoundException(trans('errors.image_not_found')))
-                ->setSubtitle(trans('errors.image_not_found_subtitle'))
-                ->setDetails(trans('errors.image_not_found_details'));
-        }
-
-        return $this->imageService->streamImageFromStorageResponse('gallery', $path);
+        $image = Image::where('path', $path)->findOrFail();
+        return Redirect::to($image->url);
     }
 
     /**
