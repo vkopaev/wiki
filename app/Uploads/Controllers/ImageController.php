@@ -32,7 +32,7 @@ class ImageController extends Controller
      */
     public function showImage(string $path)
     {
-        return app(ImageStorage::class)->getTemporaryUrl("/uploads/images/{$path}");
+        return Redirect::to(app(ImageStorage::class)->getTemporaryUrl("/uploads/images/{$path}"));
     }
 
     /**
