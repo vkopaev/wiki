@@ -22,7 +22,7 @@ services:
         volumes:
             - ".:/app/wiki"
         networks:
-            default:
+            app:
             web: 
                 aliases:
                     - wiki_web
@@ -41,7 +41,7 @@ services:
         volumes:
             - ".:/app/wiki"
         networks:
-            - default
+            - app
             - database
     schedule:
         profiles: [backend, schedule]
@@ -57,13 +57,13 @@ services:
         volumes:
             - ".:/app/wiki"
         networks:
-            - default
+            - app
             - database
     redis:
         profiles: [web, backend, redis]
-        image: registry.mr.pk-8.ru/library/redis:8.2.1-alpine
+        image: registry.mr.pk-8.ru/library/redis:alpine
         restart: unless-stopped
-        command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-your_secure_password_here}
+        command: redis-server --appendonly yes --protected-mode no
         volumes:
             - ./redis:/data
         healthcheck:
@@ -73,9 +73,9 @@ services:
             retries: 3
             start_period: 10s
         environment:
-            - REDIS_PASSWORD=${REDIS_PASSWORD:-your_secure_password_here}
+            - ALLOW_EMPTY_PASSWORD=yes
         networks:
-            default:
+            app:
                 aliases:
                     - redis
 networks:
@@ -83,5 +83,5 @@ networks:
         external: true
     database:
         external: true
-    default:
+    app:
         driver: bridge
