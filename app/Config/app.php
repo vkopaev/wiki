@@ -93,14 +93,14 @@ return [
     // Default locale to use
     // A default variant is also stored since Laravel can overwrite
     // app.locale when dynamically setting the locale in-app.
-    'locale' => env('APP_LANG', 'en'),
-    'default_locale' => env('APP_LANG', 'en'),
+    'locale' => env('APP_LOCALE', 'en'),
+    'default_locale' => env('APP_LOCALE', 'en'),
 
     //  Application Fallback Locale
-    'fallback_locale' => 'en',
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 
     // Faker Locale
-    'faker_locale' => 'en_GB',
+    'faker_locale' => env('APP_FAKER_LOCALE', 'en'),
 
     // Auto-detect the locale for public users
     // For public users their locale can be guessed by headers sent by their
