@@ -178,7 +178,7 @@ return [
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_CACHE_DB', '2'),
         ],
-        ...(is_array($redisConfig) ? $redisConfig : [])
+        // ...(is_array($redisConfig) ? $redisConfig : [])
     ],
 
     // Migration Repository Table
