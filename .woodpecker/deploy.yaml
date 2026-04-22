@@ -6,10 +6,16 @@ matrix:
     - ho.pk-8.ru
     - mr.pk-8.ru
 steps:
+  update_env:
+    image: kroniak/ssh-client
+    commands:
+      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && infisical export > .env'
+    volumes:
+      - /home/docker/ssh:/root/.ssh
   backend:
     image: kroniak/ssh-client
     commands:
-      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && php artisan down && git checkout release && git restore . && git pull && docker run --rm -v ./:/app registry.mr.pk-8.ru/composer/composer composer install --no-dev --ignore-platform-reqs'
+      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && php artisan down && git checkout ${CI_COMMIT_BRANCH} && git restore . && git pull && docker run --rm -v ./:/app registry.mr.pk-8.ru/composer/composer composer install --no-dev --ignore-platform-reqs'
     volumes:
       - /home/docker/ssh:/root/.ssh
     failure: ignore
@@ -23,7 +29,7 @@ steps:
   optimize:
     image: kroniak/ssh-client
     commands:
-      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && php artisan optimize:clear && php artisan optimize -vvv --no-interaction'
+      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && php artisan optimize:clear --except=cache && php artisan optimize --except=laravel-data -vvv --no-interaction'
     volumes:
       - /home/docker/ssh:/root/.ssh
   restart:
