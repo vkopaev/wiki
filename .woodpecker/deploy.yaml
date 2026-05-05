@@ -1,46 +1,46 @@
 matrix:
   NODE_ADDRESS:
-    - co.pk-8.ru
-    - do.pk-8.ru
-    - vo.pk-8.ru
-    - ho.pk-8.ru
-    - mr.pk-8.ru
+    - co
+    - do
+    - vo
+    - ho
+    - mr
 steps:
   update_env:
     image: kroniak/ssh-client
     commands:
-      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && infisical export > .env'
+      - ssh -tt root@${NODE_ADDRESS}.pk-8.ru 'cd /app/${CI_REPO_NAME} && infisical export --env=${NODE_ADDRESS} --silent --domain=https://vault.mr.pk-8.ru --output-file=.env --projectId=f22d6b0a-22b4-4f74-9aeb-56b9562c7963 --token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eUlkIjoiNWQyYmFmMDEtYzEyNi00NTJiLTgzMDQtNmFjNDM2YzI0NTVjIiwiaWRlbnRpdHlBY2Nlc3NUb2tlbklkIjoiOTJlZTM0M2ItZjI5OC00ZTFlLWE1ZjktNTY3YzM5NGEzZjA3IiwiYXV0aFRva2VuVHlwZSI6ImlkZW50aXR5QWNjZXNzVG9rZW4iLCJpYXQiOjE3NzgwMDgyNjEsImV4cCI6MTc4MDYwMDI2MX0.WlBkBSys4yqlOPDsO_qC6nRtIPIhSMpEFJR6S2buwRA'
     volumes:
       - /home/docker/ssh:/root/.ssh
   backend:
     image: kroniak/ssh-client
     commands:
-      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && php artisan down && git checkout ${CI_COMMIT_BRANCH} && git restore . && git pull && docker run --rm -v ./:/app registry.mr.pk-8.ru/composer/composer composer install --no-dev --ignore-platform-reqs'
+      - ssh -tt root@${NODE_ADDRESS}.pk-8.ru 'cd /app/${CI_REPO_NAME} && php artisan down && git checkout ${CI_COMMIT_BRANCH} && git restore . && git pull && docker run --rm -v ./:/app registry.mr.pk-8.ru/composer/composer composer install --no-dev --ignore-platform-reqs'
     volumes:
       - /home/docker/ssh:/root/.ssh
     failure: ignore
   front:
     image: kroniak/ssh-client
     commands:
-      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && docker run --rm --workdir /app -v ./:/app registry.mr.pk-8.ru/library/node:current-alpine sh -c "npm install && npm run build"'
+      - ssh -tt root@${NODE_ADDRESS}.pk-8.ru 'cd /app/${CI_REPO_NAME} && docker run --rm --workdir /app -v ./:/app registry.mr.pk-8.ru/library/node:current-alpine sh -c "npm install && npm run build"'
     volumes:
       - /home/docker/ssh:/root/.ssh
     failure: ignore
   optimize:
     image: kroniak/ssh-client
     commands:
-      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && php artisan optimize:clear --except=cache && php artisan optimize --except=laravel-data -vvv --no-interaction'
+      - ssh -tt root@${NODE_ADDRESS}.pk-8.ru 'cd /app/${CI_REPO_NAME} && php artisan optimize:clear --except=cache && php artisan optimize --except=laravel-data -vvv --no-interaction'
     volumes:
       - /home/docker/ssh:/root/.ssh
   restart:
     image: kroniak/ssh-client
     commands:
-      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && php artisan up && docker compose down && docker compose up -d'
+      - ssh -tt root@${NODE_ADDRESS}.pk-8.ru 'cd /app/${CI_REPO_NAME} && php artisan up && docker compose down && docker compose up -d'
     volumes:
       - /home/docker/ssh:/root/.ssh
   migration:
     image: kroniak/ssh-client
     commands:
-      - ssh -tt root@${NODE_ADDRESS} 'cd /app/${CI_REPO_NAME} && docker compose exec web php84 /app/${CI_REPO_NAME}/artisan migrate --force'
+      - ssh -tt root@${NODE_ADDRESS}.pk-8.ru 'cd /app/${CI_REPO_NAME} && docker compose exec web php84 /app/${CI_REPO_NAME}/artisan migrate --force'
     volumes:
       - /home/docker/ssh:/root/.ssh
